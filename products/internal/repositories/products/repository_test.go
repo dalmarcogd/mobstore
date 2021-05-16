@@ -79,30 +79,30 @@ func BenchmarkCardRepository_Search(b *testing.B) {
 			b.Error(err)
 		}
 		mock.ExpectBegin()
-		mock.ExpectQuery("select Card_ID from Cards where Org_ID = ? and Program_ID = ? order by Card_ID").RowsWillBeClosed().WithArgs("my-orgid", int64(i)).WillReturnRows(mock.NewRows([]string{"Card_ID"}).AddRow(i + 1).AddRow(i + 2))
+		mock.ExpectQuery("select id from products where title = ? order by id").RowsWillBeClosed().WithArgs("my-title").WillReturnRows(mock.NewRows([]string{"id"}).AddRow("my-id-1").AddRow("my-id-2"))
 		mock.ExpectRollback()
 		mock.ExpectClose()
-		cards, err := repo.Search(context.Background(), domains.ProductSearch{Filter: domains.ProductFilter{Id: ptrs.String("my-orgid")}, Projection: domains.ProductProjection{Id: true}})
+		products, err := repo.Search(context.Background(), domains.ProductSearch{Filter: domains.ProductFilter{Title: ptrs.String("my-title")}, Projection: domains.ProductProjection{Id: true}})
 		if err != nil {
 			b.Error(err)
 		}
-		if len(cards) != 2 {
-			b.Errorf("expected one record from .Search got=%v", len(cards))
+		if len(products) != 2 {
+			b.Errorf("expected one record from .Search got=%v", len(products))
 		} else {
 			var foundA, foundB bool
-			for _, card := range cards {
-				if reflect.DeepEqual(card, domains.Product{Id: ptrs.String(strconv.Itoa(i + 1))}) {
+			for _, product := range products {
+				if reflect.DeepEqual(product, domains.Product{Id: ptrs.String(strconv.Itoa(i + 1))}) {
 					foundA = true
 				}
-				if reflect.DeepEqual(card, domains.Product{Id: ptrs.String(strconv.Itoa(i + 2))}) {
+				if reflect.DeepEqual(product, domains.Product{Id: ptrs.String(strconv.Itoa(i + 2))}) {
 					foundB = true
 				}
 			}
 			if !foundA {
-				b.Errorf("card %v not found", i+1)
+				b.Errorf("product %v not found", i+1)
 			}
 			if !foundB {
-				b.Errorf("card %v not found", i+2)
+				b.Errorf("product %v not found", i+2)
 			}
 		}
 	}
