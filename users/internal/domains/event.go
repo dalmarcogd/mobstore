@@ -31,7 +31,7 @@ type (
 		EventType() string
 		Operation() string
 	}
-	UserCreatedUpdatedEventRequest struct {
+	UserEventRequest struct {
 		event
 		UserId    string         `json:"user_id" validate:"required"`
 		FirstName string         `json:"first_name" validate:"required"`
@@ -40,20 +40,20 @@ type (
 	}
 )
 
-func (p UserCreatedUpdatedEventRequest) EventId() string {
+func (p UserEventRequest) EventId() string {
 	return p.event.EventId
 }
 
-func (p UserCreatedUpdatedEventRequest) EventType() string {
+func (p UserEventRequest) EventType() string {
 	return string(p.event.EventType)
 }
 
-func (p UserCreatedUpdatedEventRequest) Operation() string {
+func (p UserEventRequest) Operation() string {
 	return p.event.Operation
 }
 
-func NewUserCreatedEventRequest(ctx context.Context, userId, firstName, lastName string, birthDate time.Time) UserCreatedUpdatedEventRequest {
-	return UserCreatedUpdatedEventRequest{
+func NewUserCreatedEventRequest(ctx context.Context, userId, firstName, lastName string, birthDate time.Time) UserEventRequest {
+	return UserEventRequest{
 		event: event{
 			EventId:   uuid.NewString(),
 			EventType: UsersTypeEvent,
@@ -68,8 +68,8 @@ func NewUserCreatedEventRequest(ctx context.Context, userId, firstName, lastName
 	}
 }
 
-func NewUserUpdatedEventRequest(ctx context.Context, userId, firstName, lastName string, birthDate time.Time) UserCreatedUpdatedEventRequest {
-	return UserCreatedUpdatedEventRequest{
+func NewUserUpdatedEventRequest(ctx context.Context, userId, firstName, lastName string, birthDate time.Time) UserEventRequest {
+	return UserEventRequest{
 		event: event{
 			EventId:   uuid.NewString(),
 			EventType: UsersTypeEvent,
@@ -84,8 +84,8 @@ func NewUserUpdatedEventRequest(ctx context.Context, userId, firstName, lastName
 	}
 }
 
-func NewUserDeletedEventRequest(ctx context.Context, userId, firstName, lastName string, birthDate time.Time) UserCreatedUpdatedEventRequest {
-	return UserCreatedUpdatedEventRequest{
+func NewUserDeletedEventRequest(ctx context.Context, userId, firstName, lastName string, birthDate time.Time) UserEventRequest {
+	return UserEventRequest{
 		event: event{
 			EventId:   uuid.NewString(),
 			EventType: UsersTypeEvent,

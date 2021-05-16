@@ -112,7 +112,7 @@ func (s *envService) ProductTopicAddress() string {
 
 func (s *envService) ProductReplicaDatabaseDsn() string {
 	return fmt.Sprintf(
-		"%v:%v@tcp(%v)/%v?charset=utf8&parseTime=True&loc=Local&tls=skip-verify",
+		"%v:%v@tcp(%v)/%v?charset=utf8&parseTime=True&loc=UTC&tls=skip-verify",
 		s.environment.ProductMysqlUser,
 		s.environment.ProductMysqlPassword,
 		s.environment.ProductRRMysqlEndpoint,
@@ -122,7 +122,7 @@ func (s *envService) ProductReplicaDatabaseDsn() string {
 
 func (s *envService) ProductDatabaseDsn() string {
 	return fmt.Sprintf(
-		"%v:%v@tcp(%v)/%v?charset=utf8&parseTime=True&loc=Local&tls=skip-verify",
+		"%v:%v@tcp(%v)/%v?charset=utf8&parseTime=True&loc=UTC&tls=skip-verify",
 		s.environment.ProductMysqlUser,
 		s.environment.ProductMysqlPassword,
 		s.environment.ProductMysqlEndpoint,

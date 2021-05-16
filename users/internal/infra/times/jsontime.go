@@ -14,7 +14,7 @@ func (j *JsonTime) UnmarshalJSON(b []byte) error {
 	if err != nil {
 		return err
 	}
-	*j = JsonTime(t)
+	*j = JsonTime(t.In(time.UTC))
 	return nil
 }
 
@@ -22,5 +22,5 @@ func (j JsonTime) MarshalJSON() ([]byte, error) {
 	if t := time.Time(j); !t.IsZero() {
 		return []byte(fmt.Sprintf("\"%v\"", t.Format("20060102"))), nil
 	}
-	return nil, nil
+	return []byte{}, nil
 }

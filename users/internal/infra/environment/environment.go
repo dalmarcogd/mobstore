@@ -105,7 +105,7 @@ func (s *envService) UserTopicAddress() string {
 
 func (s *envService) UserReplicaDatabaseDsn() string {
 	return fmt.Sprintf(
-		"%v:%v@tcp(%v)/%v?charset=utf8&parseTime=True&loc=Local&tls=skip-verify",
+		"%v:%v@tcp(%v)/%v?charset=utf8&parseTime=True&loc=UTC&tls=skip-verify",
 		s.environment.UserMysqlUser,
 		s.environment.UserMysqlPassword,
 		s.environment.UserRRMysqlEndpoint,
@@ -115,7 +115,7 @@ func (s *envService) UserReplicaDatabaseDsn() string {
 
 func (s *envService) UserDatabaseDsn() string {
 	return fmt.Sprintf(
-		"%v:%v@tcp(%v)/%v?charset=utf8&parseTime=True&loc=Local&tls=skip-verify",
+		"%v:%v@tcp(%v)/%v?charset=utf8&parseTime=True&loc=UTC&tls=skip-verify",
 		s.environment.UserMysqlUser,
 		s.environment.UserMysqlPassword,
 		s.environment.UserMysqlEndpoint,

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"reflect"
 	"strconv"
+	"time"
 )
 
 func GetProjections(st interface{}) []string {
@@ -60,7 +61,7 @@ func GetProjectionValue(st interface{}, projection string) interface{} {
 func SetProjections(st interface{}, val map[string]interface{}) error {
 	defer func() {
 		if r := recover(); r != nil {
-			fmt.Printf("Error getting projections err=%v", r)
+			fmt.Printf("Error setting projections err=%v", r)
 		}
 	}()
 	valMap := make(map[string]interface{})
@@ -84,6 +85,12 @@ func SetProjections(st interface{}, val map[string]interface{}) error {
 				switch fieldValue.Kind() {
 				case reflect.String:
 					fieldValue.SetString(string(sqlVal))
+				case reflect.Int64:
+					parseInt, err := strconv.ParseInt(string(sqlVal), 10, 64)
+					if err != nil {
+						return err
+					}
+					fieldValue.SetInt(parseInt)
 				case reflect.Ptr:
 					fieldValue.Set(reflect.New(fieldValue.Type().Elem()))
 					switch fieldValue.Type().Elem().Kind() {
@@ -96,11 +103,26 @@ func SetProjections(st interface{}, val map[string]interface{}) error {
 						}
 						fieldValue.Elem().SetInt(parseInt)
 					default:
-						fieldValue.Elem().Set(reflect.ValueOf(value))
+						if field.Type.Elem().Name() == "Time" {
+							parse, err := time.Parse(time.RFC3339, string(sqlVal))
+							if err != nil {
+								return err
+							}
+							fieldValue.Elem().Set(reflect.ValueOf(parse))
+						} else {
+							fieldValue.Elem().Set(reflect.ValueOf(value))
+						}
 					}
 				default:
-					fieldValue.Set(reflect.ValueOf(value))
-
+					if field.Type.Name() == "Time" {
+						parse, err := time.Parse(time.RFC3339, string(sqlVal))
+						if err != nil {
+							return err
+						}
+						fieldValue.Set(reflect.ValueOf(parse))
+					} else {
+						fieldValue.Set(reflect.ValueOf(value))
+					}
 				}
 				delete(valMap, column)
 			}
