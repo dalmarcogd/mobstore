@@ -7,6 +7,7 @@ import (
 	"net/http/httptest"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
@@ -19,7 +20,7 @@ import (
 
 type (
 	mockHandlerSuccessfully struct {
-		services.NoopProductsHandler
+		services.NoopUsersHandler
 		created bool
 	}
 )
@@ -27,10 +28,10 @@ type (
 func (m *mockHandlerSuccessfully) Create(_ context.Context, _ domains.UserCreate) (*domains.User, error) {
 	m.created = true
 	return &domains.User{
-		Id:           ptrs.String(uuid.New().String()),
-		PriceInCents: ptrs.Int64(10),
-		Title:        ptrs.String("my title"),
-		Description:  ptrs.String("my description"),
+		Id:        ptrs.String(uuid.New().String()),
+		FirstName: ptrs.String("firstname"),
+		LastName:  ptrs.String("lastname"),
+		BirthDate: ptrs.Time(time.Now().Add(time.Hour)),
 	}, nil
 }
 

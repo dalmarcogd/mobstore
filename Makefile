@@ -12,7 +12,12 @@ protos:
 	mv $(QUALIFIED_DIR)/products/internal/domains/domainsgrpc/domains.pb.go ../products/internal/domains/domainsgrpc/domains.pb.go && \
 	mv $(QUALIFIED_DIR)/products/internal/discounts/discountsgrpc/discounts_grpc.pb.go ../products/internal/discounts/discountsgrpc/discounts_grpc.pb.go && \
 	mockgen -source=../products/internal/discounts/discountsgrpc/discounts_grpc.pb.go -destination=../products/internal/discounts/discountsgrpc/discounts_mock.pb.go -package=discountsgrpc && \
-	rm -rf $(PROTOS_DIR)github.com
+	rm -rf $(PROTOS_DIR)github.com && \
+	python3.9 -m grpc_tools.protoc --proto_path=$(PROTOS_DIR) --python_out=. domains.proto && \
+	python3.9 -m grpc_tools.protoc --proto_path=$(PROTOS_DIR) --python_out=. --grpc_python_out=. discounts.proto && \
+	mv $(PROTOS_DIR)*.py ../discounts/src/discountsgrpc/ && \
+	rm -rf ./*.py
+
 
 clean:
 	@echo "\nRemoving localstack, mysql"
