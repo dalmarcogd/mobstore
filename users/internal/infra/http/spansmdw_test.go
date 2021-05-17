@@ -42,12 +42,12 @@ func TestSpansMiddlewareSuccessfully(t *testing.T) {
 		return errors.New("some error")
 	}
 
-	req := httptest.NewRequest(http.MethodPost, "/cards", strings.NewReader(`{"org_id":  null"cid": "{% uuid 'v4' %}" }`))
+	req := httptest.NewRequest(http.MethodPost, "/products", strings.NewReader(`{"org_id":  null"cid": "{% uuid 'v4' %}" }`))
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	rec := httptest.NewRecorder()
 
 	context := echo.New().NewContext(req, rec)
-	context.SetPath("/cards")
+	context.SetPath("/products")
 	if err := spanMiddleware(handle)(context); err != nil {
 		t.Error(err)
 	}

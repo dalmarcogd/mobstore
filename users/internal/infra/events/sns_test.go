@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"testing"
+	"time"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/sns"
@@ -43,7 +44,7 @@ func TestEventsService_Send(t *testing.T) {
 
 	ctx := ctxs.ContextWithCid(context.Background(), "my cid")
 
-	req := domains.NewProductCreatedEventRequest(ctx, "1", "123", "123123", 10)
+	req := domains.NewUserCreatedEventRequest(ctx, "1", "123", "123123", time.Now())
 
 	if err := sm.UsersEvents().Send(ctx, req); err != nil {
 		t.Errorf("unexpected error: %v", err)
@@ -81,7 +82,7 @@ func TestEventsService_SendBulk(t *testing.T) {
 	reqs := make([]domains.EventRequest, 0)
 
 	for i := 0; i < 501; i++ {
-		reqs = append(reqs, domains.NewProductCreatedEventRequest(ctx, "1", "123", "123123", 10))
+		reqs = append(reqs, domains.NewUserCreatedEventRequest(ctx, "1", "123", "123123", time.Now()))
 	}
 
 	if err := sm.UsersEvents().SendBulk(ctx, reqs); err != nil {
