@@ -17,6 +17,10 @@ Mobstore is an initial validation of the microservice architecture, using sync a
 ## Architecture design
 ![Architecture design](Mobstore-design.png?raw=true "Design")
 
+User application responsible for storing users and producing events with create, update and delete operations.
+Product application responsible for storing products and producing events with create, update and delete operations.
+Application discounts consume events produced by users and products through SNS-> SQS consumers and offer discounts based on the user and the product previously stored.
+
 ## How to run local
 
 ### Requirements
