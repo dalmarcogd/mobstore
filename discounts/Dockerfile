@@ -8,7 +8,7 @@ RUN pip install --no-cache -U pip pipenv && pipenv install --system
 
 ADD . .
 
-EXPOSE 8082
+EXPOSE 50051
 
 ENTRYPOINT python -m src
 

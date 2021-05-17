@@ -1,4 +1,4 @@
-.PHONY: protos clean infrastructure
+.PHONY: protos clean infrastructure terraform_apply database_migration
 
 PROTOS_DIR := ./
 QUALIFIED_DIR = $(PROTOS_DIR)github.com/dalmarcogd/mobstore
@@ -48,9 +48,12 @@ database_migration:
 
 infrastructure: clean
 	@echo "\nStarting localstack container and creating AWS local resources"
-	@docker-compose up -d --build --force-recreate
+	@docker-compose up -d --build --force-recreate localstack mysql zipkin
 	@echo "\nWaiting until localstack be ready"
 	@until docker inspect --format='{{json .State.Health}}' localstack | grep -o healthy; do sleep 1; done
 	@echo "\nCreating AWS resources locally"
 	$(MAKE) terraform_apply
 	$(MAKE) database_migration
+
+run: infrastructure
+	@docker-compose up -d --build users products discounts

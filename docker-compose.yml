@@ -3,6 +3,8 @@ services:
   localstack:
     image: localstack/localstack-full:latest
     container_name: localstack
+    expose:
+      - '4566'
     ports:
       - '4563-4599:4563-4599'
       - '8055:8080'
@@ -19,6 +21,8 @@ services:
       - '/var/run/docker.sock:/var/run/docker.sock'
     healthcheck:
       test: curl -f "http://localhost:4566/health"
+    networks:
+      - internal
 
   mysql:
     image: mysql:latest
@@ -34,12 +38,80 @@ services:
       - '3306'
     volumes:
       - mysql:/var/lib/mysql
+    networks:
+      - internal
 
   zipkin:
     image: openzipkin/zipkin
     container_name: "mobstore-zipkin"
     ports:
       - '9411:9411'
+    networks:
+      - internal
+
+  users:
+    container_name: "mobstore-users"
+    build:
+      context: ./users
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    networks:
+      - internal
+    environment:
+      AWS_ENDPOINT: 'http://localstack:4566'
+      ZIPKIN_URL_V2: 'http://mobstore-zipkin:9411/api/v2/spans'
+      USER_MYSQL_ENDPOINT: 'mysql:3306'
+      USER_RR_MYSQL_ENDPOINT: 'mysql:3306'
+    links:
+      - zipkin
+      - mysql
+      - localstack
+      - discounts
+
+  products:
+    container_name: "mobstore-products"
+    build:
+      context: ./products
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - internal
+    environment:
+      AWS_ENDPOINT: 'http://localstack:4566'
+      ZIPKIN_URL_V2: 'http://mobstore-zipkin:9411/api/v2/spans'
+      PRODUCT_MYSQL_ENDPOINT: 'mysql:3306'
+      PRODUCT_RR_MYSQL_ENDPOINT: 'mysql:3306'
+      DISCOUNTS_API_URL: 'discounts:50051'
+    links:
+      - zipkin
+      - mysql
+      - localstack
+      - discounts
+
+  discounts:
+    container_name: "mobstore-discounts"
+    build:
+      context: ./discounts
+      dockerfile: Dockerfile
+    ports:
+      - "50051:50051"
+    networks:
+      - internal
+    environment:
+      AWS_ENDPOINT: 'http://localstack:4566'
+      DB_HOST: 'mysql:3306'
+      USERS_EVENTS: 'http://localstack:4566/000000000000/Discounts-UsersCrud.fifo'
+      PRODUCTS_EVENTS: 'http://localstack:4566/000000000000/Discounts-ProductsCrud.fifo'
+    links:
+      - zipkin
+      - mysql
+      - localstack
 
 volumes:
   mysql:
+
+networks:
+  internal:
+    driver: 'bridge'

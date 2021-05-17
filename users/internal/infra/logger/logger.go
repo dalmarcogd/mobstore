@@ -91,9 +91,6 @@ func (s *loggerService) output(ctx context.Context, fields ...map[string]interfa
 		}
 	}
 
-	f["config.id"] = ctxs.GetConfigIdFromContext(ctx)
-	f["org.id"] = ctxs.GetOrgIdFromContext(ctx)
-
 	stack := ""
 	pc, _, line, ok := runtime.Caller(s.callerCount)
 	if ok {
