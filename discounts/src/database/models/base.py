@@ -11,7 +11,7 @@ DeclarativeModel = declarative_base()
 class BaseModel(DeclarativeModel):
     __abstract__ = True
     id = Column(
-        String,
+        String(56),
         unique=True,
         nullable=False,
         primary_key=True,

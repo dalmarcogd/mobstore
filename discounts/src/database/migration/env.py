@@ -3,7 +3,7 @@ from sqlalchemy import engine_from_config
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
-from database.models import DeclarativeModel
+from src.database.models import DeclarativeModel
 
 config = context.config
 

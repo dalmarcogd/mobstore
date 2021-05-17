@@ -2,10 +2,11 @@ from concurrent import futures
 
 import grpc
 
-from src import settings, handlers
+from src import settings
 from src.consumer import sqs
 from src.discountsgrpc import discounts_pb2_grpc
 from src.handlers.disounts import Discounts
+from src.handlers.products import handle_products_events
 from src.handlers.users import handle_users_events
 
 
@@ -25,5 +26,5 @@ class Consumer:
     @staticmethod
     def run():
         ex = futures.ThreadPoolExecutor(max_workers=2)
-        ex.submit(sqs.start_pool, settings.PRODUCTS_EVENTS, handle_users_events)
+        ex.submit(sqs.start_pool, settings.PRODUCTS_EVENTS, handle_products_events)
         ex.submit(sqs.start_pool, settings.USERS_EVENTS, handle_users_events)

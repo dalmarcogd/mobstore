@@ -163,6 +163,7 @@ func (s *eventsService) Send(ctx context.Context, req domains.EventRequest) erro
 				StringValue: ptrs.String(req.Operation()),
 			},
 		},
+		MessageGroupId: ptrs.String(req.EventId()),
 	}
 
 	res, err := s.client.Publish(ctx, in)
@@ -237,6 +238,7 @@ func (s *eventsService) sendBulk(ctx context.Context, wg *sync.WaitGroup, items 
 					StringValue: ptrs.String(req.Operation()),
 				},
 			},
+			MessageGroupId: ptrs.String(req.EventId()),
 		}
 
 		res, err := s.client.Publish(ctx, in)

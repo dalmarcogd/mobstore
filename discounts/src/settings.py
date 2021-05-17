@@ -7,12 +7,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_PATH = config("BASE_PATH", default="/")
 
 DATABASE_URI = (
-    f"mysql+pymysql://{config('DB_USER', default='users')}:{config('DB_PASSWORD', default='my-password')}@"
-    f"{config('DB_HOST', default='localhost:3306')}/{config('DB_NAME', default='users')}"
-    "?charset=utf8&parseTime=True&loc=UTC&tls=skip-verify"
+    f"mysql+pymysql://{config('DB_USER', default='discounts')}:{config('DB_PASSWORD', default='my-password')}@"
+    f"{config('DB_HOST', default='localhost:3306')}/{config('DB_NAME', default='discounts')}"
+    "?charset=utf8"
 )
 
-USERS_EVENTS = config("USERS_EVENTS", default='http://localhost:4566/000000000000/Discounts-UsersCrud.fifo"')
+USERS_EVENTS = config("USERS_EVENTS", default='http://localhost:4566/000000000000/Discounts-UsersCrud.fifo')
 
 PRODUCTS_EVENTS = config("PRODUCTS_EVENTS", default='http://localhost:4566/000000000000/Discounts-ProductsCrud.fifo')
 

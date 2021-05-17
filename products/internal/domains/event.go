@@ -35,7 +35,7 @@ type (
 		ProductId    string `json:"product_id" validate:"required"`
 		Title        string `json:"title" validate:"required"`
 		Description  string `json:"description" validate:"required"`
-		PriceInCents int64  `json:"value_in_cents" validate:"required"`
+		PriceInCents int64  `json:"price_in_cents" validate:"required"`
 	}
 )
 

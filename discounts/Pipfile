@@ -10,6 +10,7 @@ python-decouple = "*"
 PyMySQL = "*"
 grpcio = "*"
 protobuf = "*"
+cryptography = "*"
 boto3 = "*"
 
 [requires]

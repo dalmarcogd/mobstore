@@ -1,4 +1,4 @@
-from database import migration
+from src.database import migration
 
 if __name__ == "__main__":
     migration.revision()

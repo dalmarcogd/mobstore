@@ -1,5 +1,6 @@
+import json
 import logging
-from typing import Callable
+from typing import Callable, Dict, List
 
 import boto3
 
@@ -20,14 +21,18 @@ def start_pool(queue: str, handler: Callable):
                 MessageAttributeNames=[
                     'All'
                 ],
-                WaitTimeSeconds=10
+                WaitTimeSeconds=2
             )
             if 'Messages' in response:
                 try:
-                    messages = response['Messages']
+                    messages: List[Dict] = response['Messages']
                     for message in messages:
-                        handler(message)
+                        receipt_handle: str = message.get('ReceiptHandle')
+                        body_str: str = message.get('Body')
+                        body: Dict = json.loads(body_str)
+                        handler(body)
+                        _sqs.delete_message(QueueUrl=queue, ReceiptHandle=receipt_handle)
                 except Exception as e:
                     logging.error(f'[sqs] error no message in queue -> {e}')
-        except BaseException as exc:
+        except Exception as exc:
             logging.error(f'[sqs] error no message in queue -> {exc}')

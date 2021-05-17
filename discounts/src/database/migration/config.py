@@ -1,6 +1,6 @@
 from alembic.config import Config
 
-from settings import BASE_DIR, DATABASE_URI
+from src.settings import BASE_DIR, DATABASE_URI
 
 alembic_cfg = Config()
 alembic_cfg.set_main_option("script_location", f"{BASE_DIR}/src/database/migration")

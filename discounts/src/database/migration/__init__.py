@@ -1,6 +1,6 @@
 from alembic import command
 
-from database.migration.config import alembic_cfg
+from src.database.migration.config import alembic_cfg
 
 
 def upgrade():

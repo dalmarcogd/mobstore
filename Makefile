@@ -41,9 +41,10 @@ terraform_apply:
 database_migration:
 	@echo "\nMigrating database products"
 	cd products && go build -a -tags netgo -o products_migration cmd/migration/main.go && ./products_migration && rm products_migration
+	@echo "\nMigrating database users"
 	cd users && go build -a -tags netgo -o users_migration cmd/migration/main.go && ./users_migration && rm users_migration
-    #cd discounts && go build -a -tags netgo -o discounts_migration cmd/migration/main.go && ./discounts_migration && rm discounts_migration
-
+	@echo "\nMigrating database discounts"
+	cd discounts && python3.9 -m src database_migration
 
 infrastructure: clean
 	@echo "\nStarting localstack container and creating AWS local resources"

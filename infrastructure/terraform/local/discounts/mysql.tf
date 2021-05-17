@@ -34,7 +34,8 @@ resource "mysql_grant" "mysql_grant_discounts" {
     "UPDATE",
     "DELETE",
     "CREATE",
-    "DROP"]
+    "DROP",
+    "INDEX"]
   lifecycle {
     prevent_destroy = true
   }
