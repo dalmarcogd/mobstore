@@ -27,7 +27,7 @@ func TestLoggerMiddlewareSuccessfully(t *testing.T) {
 	handle := func(ctx echo.Context) error {
 		return nil
 	}
-	req := httptest.NewRequest(http.MethodPost, "/cards", strings.NewReader(`{"org_id":  null"cid": "{% uuid 'v4' %}" }`))
+	req := httptest.NewRequest(http.MethodPost, "/products", strings.NewReader(`{"org_id":  null"cid": "{% uuid 'v4' %}" }`))
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	rec := httptest.NewRecorder()
 
@@ -91,7 +91,7 @@ func TestLoggerMiddlewareErrorSuccessfully(t *testing.T) {
 		err := echo.NewHTTPError(http.StatusInternalServerError, errors.New("some error"))
 		return echo.NewHTTPError(http.StatusBadRequest, err).SetInternal(err)
 	}
-	req := httptest.NewRequest(http.MethodPost, "/cards", strings.NewReader(`{"org_id":  null"cid": "{% uuid 'v4' %}" }`))
+	req := httptest.NewRequest(http.MethodPost, "/products", strings.NewReader(`{"org_id":  null"cid": "{% uuid 'v4' %}" }`))
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	rec := httptest.NewRecorder()
 

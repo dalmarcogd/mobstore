@@ -79,7 +79,7 @@ func TestMySQL_Get(t *testing.T) {
 func TestMySQL_Insert(t *testing.T) {
 	ctx := context.Background()
 	mysql, mock := newMock(t)
-	query := "INSERT INTO CardAutomaticUpdater(Id, Org_ID, Program_ID, Ica, BulkId, Endpoint, Enable) VALUES(?,?,?,?,?,?,?)"
+	query := "INSERT INTO products(Id, Org_ID, Program_ID, Ica, BulkId, Endpoint, Enable) VALUES(?,?,?,?,?,?,?)"
 
 	mock.ExpectBegin()
 	mock.ExpectExec(query).WithArgs(1, "org-18726-ashgd-1qsd", 222, 1234, 12312, "https://google.com", true).
@@ -294,7 +294,7 @@ func TestMySQL_UpdateError(t *testing.T) {
 func TestMySQLTransaction_Get(t *testing.T) {
 	ctx := context.Background()
 	mysql, mock := newMock(t)
-	query := "select * from CardAutomaticUpdater"
+	query := "select * from products"
 
 	mock.ExpectBegin()
 	mock.ExpectQuery(query).WillReturnRows(

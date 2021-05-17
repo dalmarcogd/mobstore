@@ -78,14 +78,6 @@ func (n *NoopDatabase) WithServiceManager(_ ServiceManager) Database {
 	return n
 }
 
-func (n *NoopDatabase) WithCardsAutomaticUpdaterDatabase() Database {
-	return n
-}
-
-func (n *NoopDatabase) WithCardsEmbossingsDatabase() Database {
-	return n
-}
-
 func (n *NoopDatabase) WithUserDatabase() Database {
 	return n
 }
@@ -218,43 +210,11 @@ func (n *NoopEnvironment) AwsSecretKey() string {
 	return ""
 }
 
-func (n *NoopEnvironment) StatsdServer() string {
-	return ""
-}
-
-func (n *NoopEnvironment) DiscountsAddress() string {
-	return ""
-}
-
-func (n *NoopEnvironment) OrgsAddress() string {
-	return ""
-}
-
-func (n *NoopEnvironment) OrgsV2Address() string {
-	return ""
-}
-
 func (n *NoopEnvironment) SpanUrl() string {
 	return ""
 }
 
 func (n *NoopEnvironment) UserTopicAddress() string {
-	return ""
-}
-
-func (n *NoopEnvironment) Timeline() string {
-	return ""
-}
-
-func (n *NoopEnvironment) SecretManagerId() string {
-	return ""
-}
-
-func (n *NoopEnvironment) RedisAddress() string {
-	return ""
-}
-
-func (n *NoopEnvironment) RedisReplicaAddress() string {
 	return ""
 }
 

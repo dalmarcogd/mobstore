@@ -169,7 +169,7 @@ func New() *serviceManager {
 		spans:              NewNoopSpans(),
 		productDatabase:    NewNoopDatabase(),
 		productsRepository: NewNoopProductsRepository(),
-		productsHandler:    NewNoopCardsHandler(),
+		productsHandler:    NewNoopProductsHandler(),
 		productsEvents:     NewNoopEvents(),
 	}
 }

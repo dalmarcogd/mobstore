@@ -29,7 +29,7 @@ func TestCidMiddlewareSuccessfully(t *testing.T) {
 		withCid = cid != nil && *cid == "some-id"
 		return nil
 	}
-	req := httptest.NewRequest(http.MethodPost, "/cards", strings.NewReader(`{"org_id":  null"cid": "{% uuid 'v4' %}" }`))
+	req := httptest.NewRequest(http.MethodPost, "/products", strings.NewReader(`{"org_id":  null"cid": "{% uuid 'v4' %}" }`))
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	req.Header.Set("x-cid", "some-id")
 	rec := httptest.NewRecorder()
@@ -63,7 +63,7 @@ func TestCidMiddlewareErrorSuccessfully(t *testing.T) {
 		withCid = cid != nil && *cid != ""
 		return errors.New("some error")
 	}
-	req := httptest.NewRequest(http.MethodPost, "/cards", strings.NewReader(`{"org_id":  null"cid": "{% uuid 'v4' %}" }`))
+	req := httptest.NewRequest(http.MethodPost, "/products", strings.NewReader(`{"org_id":  null"cid": "{% uuid 'v4' %}" }`))
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	rec := httptest.NewRecorder()
 
