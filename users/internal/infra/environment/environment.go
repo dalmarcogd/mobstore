@@ -13,7 +13,7 @@ import (
 type (
 	environment struct {
 		Environment         string `cfg:"ENVIRONMENT" cfgDefault:"local" cfgRequired:"true"`
-		Service             string `cfg:"SYSTEM" cfgDefault:"api-products" cfgRequired:"true"`
+		Service             string `cfg:"SYSTEM" cfgDefault:"api-users" cfgRequired:"true"`
 		Version             string `cfg:"SYSTEM_VERSION" cfgDefault:"v1.0.0" cfgRequired:"true"`
 		DebugPprof          bool   `cfg:"DEBUG_PPROF" cfgDefault:"true" `
 		AwsRegion           string `cfg:"AWS_REGION" cfgDefault:"sa-east-1" `

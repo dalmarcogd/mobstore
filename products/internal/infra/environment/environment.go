@@ -28,8 +28,6 @@ type (
 		ProductMysqlDatabase   string `cfg:"PRODUCT_MYSQL_DATABASE" cfgDefault:"products" `
 		ProductMysqlEndpoint   string `cfg:"PRODUCT_MYSQL_ENDPOINT" cfgDefault:"localhost:3306" `
 		ProductRRMysqlEndpoint string `cfg:"PRODUCT_RR_MYSQL_ENDPOINT" cfgDefault:"localhost:3306" `
-		RedisAddress           string `cfg:"REDIS_ADDRESS" cfgDefault:"localhost:6379"`
-		RedisReplicaAddress    string `cfg:"REDIS_REPLICA_ADDRESS" cfgDefault:"localhost:6379"`
 	}
 
 	envService struct {
@@ -130,14 +128,6 @@ func (s *envService) ProductDatabaseDsn() string {
 	)
 }
 
-func (s *envService) RedisAddress() string {
-	return s.environment.RedisAddress
-}
-
-func (s *envService) RedisReplicaAddress() string {
-	return s.environment.RedisReplicaAddress
-}
-
 func (s *envService) Configs() map[string]interface{} {
 	return map[string]interface{}{
 		"ENVIRONMENT":               s.environment.Environment,
@@ -154,7 +144,5 @@ func (s *envService) Configs() map[string]interface{} {
 		"PRODUCT_MYSQL_DATABASE":    s.environment.ProductMysqlDatabase,
 		"PRODUCT_MYSQL_ENDPOINT":    s.environment.ProductMysqlEndpoint,
 		"PRODUCT_RR_MYSQL_ENDPOINT": s.environment.ProductRRMysqlEndpoint,
-		"REDIS_ADDRESS":             s.environment.RedisAddress,
-		"REDIS_REPLICA_ADDRESS":     s.environment.RedisReplicaAddress,
 	}
 }

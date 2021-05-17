@@ -74,8 +74,6 @@ type (
 		ProductDatabaseDsn() string
 		ProductReplicaDatabaseDsn() string
 		ProductTopicAddress() string
-		RedisAddress() string
-		RedisReplicaAddress() string
 		Configs() map[string]interface{}
 	}
 	Discounts interface {
