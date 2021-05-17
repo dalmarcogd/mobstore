@@ -65,7 +65,7 @@ func TestProductRepository_Search(t *testing.T) {
 	}
 }
 
-func BenchmarkCardRepository_Search(b *testing.B) {
+func BenchmarkProductRepository_Search(b *testing.B) {
 	b.ReportAllocs()
 
 	for i := 0; i < b.N; i++ {

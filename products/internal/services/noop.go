@@ -318,7 +318,7 @@ func (n *NoopProductsRepository) Migrate(_ context.Context) error {
 	return nil
 }
 
-func NewNoopCardsHandler() *NoopProductsHandler {
+func NewNoopProductsHandler() *NoopProductsHandler {
 	return &NoopProductsHandler{}
 }
 

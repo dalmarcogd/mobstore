@@ -200,15 +200,15 @@ func (s *eventsService) SendBulk(ctx context.Context, req []domains.EventRequest
 	return nil
 }
 
-func (s *eventsService) chunks(cards []domains.EventRequest, lim int) [][]domains.EventRequest {
+func (s *eventsService) chunks(eventRequests []domains.EventRequest, lim int) [][]domains.EventRequest {
 	var chunk []domains.EventRequest
-	chunks := make([][]domains.EventRequest, 0, len(cards)/lim+1)
-	for len(cards) >= lim {
-		chunk, cards = cards[:lim], cards[lim:]
+	chunks := make([][]domains.EventRequest, 0, len(eventRequests)/lim+1)
+	for len(eventRequests) >= lim {
+		chunk, eventRequests = eventRequests[:lim], eventRequests[lim:]
 		chunks = append(chunks, chunk)
 	}
-	if len(cards) > 0 {
-		chunks = append(chunks, cards[:])
+	if len(eventRequests) > 0 {
+		chunks = append(chunks, eventRequests[:])
 	}
 	return chunks
 }
