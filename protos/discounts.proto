@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+option optimize_for = SPEED;
+option go_package = "github.com/dalmarcogd/mobstore/products/internal/discounts/discountsgrpc;discountsgrpc";
+
+import "domains.proto";
+
+package discountsgrpc;
+
+service Discounts {
+  rpc Get(domains.DiscountRequest) returns (domains.DiscountResponse) {}
+}
+

@@ -1,0 +1,17 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[packages]
+SQLAlchemy = "*"
+alembic = "*"
+python-decouple = "*"
+PyMySQL = "*"
+grpcio = "*"
+protobuf = "*"
+cryptography = "*"
+boto3 = "*"
+
+[requires]
+python_version = "3.9"
