@@ -1,3 +1,4 @@
+import logging
 from typing import Dict
 
 from src.database import queries
@@ -31,11 +32,17 @@ def handle_users_events(message: Dict):
 
     if event_type == 'users':
         if operation == 'create':
-            _handle_create_user(_get_user(message))
+            user = _get_user(message)
+            _handle_create_user(user)
+            logging.info(f"user id={user.get('id')} created")
         elif operation == 'update':
-            _handle_update_user(_get_user(message))
+            user = _get_user(message)
+            _handle_update_user(user)
+            logging.info(f"user id={user.get('id')} updated")
         elif operation == 'delete':
-            _handle_delete_user(_get_user(message))
+            user = _get_user(message)
+            _handle_delete_user(user)
+            logging.info(f"user id={user.get('id')} deleted")
         else:
             raise UnrecognizedEventOperation(operation)
     else:

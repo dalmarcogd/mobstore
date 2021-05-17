@@ -14,5 +14,5 @@ message DiscountResponse {
   string product_id = 1;
   string user_id = 2;
   float percentage = 3;
-  int64 value_in_cents = 4;
+  float value_in_cents = 4;
 }

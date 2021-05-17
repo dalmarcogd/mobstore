@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from src.discountsgrpc.domains_pb2 import DiscountRequest, DiscountResponse
+import src.discountsgrpc.domains_pb2 as domains__pb2
 
 
 class DiscountsStub(object):
@@ -15,10 +15,10 @@ class DiscountsStub(object):
             channel: A grpc.Channel.
         """
         self.Get = channel.unary_unary(
-            '/discountsgrpc.Discounts/Get',
-            request_serializer=DiscountRequest.SerializeToString,
-            response_deserializer=DiscountResponse.FromString,
-        )
+                '/discountsgrpc.Discounts/Get',
+                request_serializer=domains__pb2.DiscountRequest.SerializeToString,
+                response_deserializer=domains__pb2.DiscountResponse.FromString,
+                )
 
 
 class DiscountsServicer(object):
@@ -33,18 +33,18 @@ class DiscountsServicer(object):
 
 def add_DiscountsServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        'Get': grpc.unary_unary_rpc_method_handler(
-            servicer.Get,
-            request_deserializer=DiscountRequest.FromString,
-            response_serializer=DiscountResponse.SerializeToString,
-        ),
+            'Get': grpc.unary_unary_rpc_method_handler(
+                    servicer.Get,
+                    request_deserializer=domains__pb2.DiscountRequest.FromString,
+                    response_serializer=domains__pb2.DiscountResponse.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-        'discountsgrpc.Discounts', rpc_method_handlers)
+            'discountsgrpc.Discounts', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
-# This class is part of an EXPERIMENTAL API.
+ # This class is part of an EXPERIMENTAL API.
 class Discounts(object):
     """Missing associated documentation comment in .proto file."""
 
@@ -60,7 +60,7 @@ class Discounts(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/discountsgrpc.Discounts/Get',
-                                             DiscountRequest.SerializeToString,
-                                             DiscountResponse.FromString,
-                                             options, channel_credentials,
-                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            domains__pb2.DiscountRequest.SerializeToString,
+            domains__pb2.DiscountResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

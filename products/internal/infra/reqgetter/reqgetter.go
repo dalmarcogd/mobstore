@@ -13,3 +13,12 @@ func GetCid(req *http.Request) *string {
 	}
 	return nil
 }
+func GetUserId(req *http.Request) *string {
+	if req != nil && req.Header != nil {
+		xUserId := req.Header.Get("x-user-id")
+		if xUserId != "" {
+			return &xUserId
+		}
+	}
+	return nil
+}

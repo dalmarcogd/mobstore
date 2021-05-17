@@ -22,7 +22,7 @@ class User(BaseModel):
             "created_at": self.created_at,
             "updated_at": self.updated_at,
             "deleted_at": self.deleted_at,
-            "title": self.title,
-            "description": self.description,
-            "price_in_cents": self.price_in_cents,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "birth_date": self.birth_date,
         }

@@ -8,7 +8,9 @@ import (
 	"github.com/labstack/echo/v4"
 
 	"github.com/dalmarcogd/mobstore/products/internal/domains"
+	"github.com/dalmarcogd/mobstore/products/internal/infra/ctxs"
 	"github.com/dalmarcogd/mobstore/products/internal/infra/ptrs"
+	"github.com/dalmarcogd/mobstore/products/internal/infra/reqgetter"
 )
 
 //handleCreateV1 creates a Product
@@ -136,6 +138,11 @@ func (s *httpService) handleGetV1(c echo.Context) error {
 	ctx, span := s.ServiceManager().Spans().New(c.Request().Context())
 	defer span.Finish()
 
+	userId := reqgetter.GetUserId(c.Request())
+	if userId != nil {
+		ctx = ctxs.ContextWithUserId(ctx, ptrs.StringValue(userId))
+	}
+
 	products, err := s.ServiceManager().ProductsHandler().List(ctx)
 	if err != nil {
 		s.ServiceManager().Logger().Error(ctx, fmt.Sprintf("Error during get product, err=%v", err))
@@ -150,6 +157,7 @@ func (s *httpService) handleGetV1(c echo.Context) error {
 			PriceInCents: ptrs.Int64Value(product.PriceInCents),
 			Title:        ptrs.StringValue(product.Title),
 			Description:  product.Description,
+			Discount:     product.Discount,
 		}
 	}
 
@@ -169,6 +177,11 @@ func (s *httpService) handleGetByIdV1(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusUnprocessableEntity, err.Error()).SetInternal(err)
 	}
 
+	userId := reqgetter.GetUserId(c.Request())
+	if userId != nil {
+		ctx = ctxs.ContextWithUserId(ctx, ptrs.StringValue(userId))
+	}
+
 	product, err := s.ServiceManager().ProductsHandler().Get(ctx, paramProductId)
 	if err != nil {
 		s.ServiceManager().Logger().Error(ctx, fmt.Sprintf("Error during get product, err=%v", err))
@@ -181,6 +194,7 @@ func (s *httpService) handleGetByIdV1(c echo.Context) error {
 		PriceInCents: ptrs.Int64Value(product.PriceInCents),
 		Title:        ptrs.StringValue(product.Title),
 		Description:  product.Description,
+		Discount:     product.Discount,
 	}
 
 	return c.JSON(http.StatusOK, resp)

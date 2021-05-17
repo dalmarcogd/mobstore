@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import Dict
 
+from sqlalchemy.exc import NoResultFound
 from sqlalchemy.orm import Query
 
 from src.database.models import User
@@ -50,10 +51,13 @@ def delete_user(user_id: str) -> [Dict, None]:
     return None
 
 
-def get_user(user_id: str) -> Dict:
+def get_user(user_id: str) -> [Dict, None]:
     with db_session() as session:
-        user: User = Query(User, session=session).filter_by(id=user_id).one()
-        return user.to_dict()
+        try:
+            user: User = Query(User, session=session).filter_by(id=user_id, deleted_at=None).one()
+            return user.to_dict()
+        except NoResultFound:
+            return None
 
 
 def create_product(product: Dict) -> Dict:
@@ -95,7 +99,10 @@ def delete_product(product_id: str) -> [Dict, None]:
     return None
 
 
-def get_product(product_id: str) -> Dict:
+def get_product(product_id: str) -> [Dict, None]:
     with db_session() as session:
-        product: Product = Query(Product, session=session).filter_by(id=product_id).one()
-        return product.to_dict()
+        try:
+            product: Product = Query(Product, session=session).filter_by(id=product_id, deleted_at=None).one()
+            return product.to_dict()
+        except NoResultFound:
+            return None

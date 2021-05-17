@@ -26,10 +26,11 @@ type (
 		Description  string `json:"description" validate:"omitempty,min=1"`
 	}
 	ProductGetResponseV1 struct {
-		Id           string  `json:"id"`
-		PriceInCents int64   `json:"price_in_cents"`
-		Title        string  `json:"title"`
-		Description  *string `json:"description"`
+		Id           string           `json:"id"`
+		PriceInCents int64            `json:"price_in_cents"`
+		Title        string           `json:"title"`
+		Description  *string          `json:"description"`
+		Discount     *ProductDiscount `json:"discount"`
 	}
 	ProductListResponseV1 struct {
 		Products []ProductGetResponseV1 `json:"products"`
@@ -43,6 +44,7 @@ type (
 		CreatedAt    time.Time  `projection:"created_at"`
 		UpdatedAt    time.Time  `projection:"updated_at"`
 		DeletedAt    *time.Time `projection:"deleted_at"`
+		Discount     *ProductDiscount
 	}
 	ProductCreate struct {
 		PriceInCents int64  `validate:"required"`
@@ -59,7 +61,6 @@ type (
 		Filter     ProductFilter
 		Projection ProductProjection
 	}
-
 	ProductFilter struct {
 		Id           *string    `filter:"id"`
 		PriceInCents *int64     `filter:"price_in_cents"`
@@ -67,7 +68,6 @@ type (
 		Description  *string    `filter:"description"`
 		DeletedAt    *time.Time `filter:"deleted_at"`
 	}
-
 	ProductProjection struct {
 		Id           bool `projection:"id"`
 		PriceInCents bool `projection:"price_in_cents"`
@@ -76,6 +76,11 @@ type (
 		CreatedAt    bool `projection:"created_at"`
 		UpdatedAt    bool `projection:"updated_at"`
 		DeletedAt    bool `projection:"deleted_at"`
+	}
+
+	ProductDiscount struct {
+		Percentage   float64 `json:"percentage"`
+		ValueInCents float64   `json:"value_in_cents"`
 	}
 )
 

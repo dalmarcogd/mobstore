@@ -20,7 +20,7 @@ type (
 		AwsEndpoint            string `cfg:"AWS_ENDPOINT" cfgDefault:"http://localhost:4566" `
 		AwsAccessKey           string `cfg:"AWS_ACCESS_KEY" cfgDefault:"fake_access_key" `
 		AwsSecretKey           string `cfg:"AWS_SECRET_KEY" cfgDefault:"fake_secret_key" `
-		DiscountsAddress       string `cfg:"DISCOUNTS_API_URL" cfgDefault:"http://localhost:3466"`
+		DiscountsAddress       string `cfg:"DISCOUNTS_API_URL" cfgDefault:"localhost:50051"`
 		ZipkinUrl              string `cfg:"ZIPKIN_URL_V2" cfgDefault:"http://localhost:9411/api/v2/spans" cfgRequired:"true"`
 		ProductTopicAddress    string `cfg:"PRODUCT_TOPIC_ADDRESS" cfgDefault:"arn:aws:sns:sa-east-1:000000000000:ProductsEvents.fifo" cfgRequired:"true"`
 		ProductMysqlUser       string `cfg:"PRODUCT_MYSQL_USER" cfgDefault:"products" `

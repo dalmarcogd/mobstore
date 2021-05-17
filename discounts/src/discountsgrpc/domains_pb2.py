@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'H\001ZPgithub.com/dalmarcogd/mobstore/products/internal/domains/domainsgrpc;domainsgrpc',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\rdomains.proto\x12\x07\x64omains\"6\n\x0f\x44iscountRequest\x12\x12\n\nproduct_id\x18\x01 \x01(\t\x12\x0f\n\x07user_id\x18\x02 \x01(\t\"c\n\x10\x44iscountResponse\x12\x12\n\nproduct_id\x18\x01 \x01(\t\x12\x0f\n\x07user_id\x18\x02 \x01(\t\x12\x12\n\npercentage\x18\x03 \x01(\x02\x12\x16\n\x0evalue_in_cents\x18\x04 \x01(\x03\x42TH\x01ZPgithub.com/dalmarcogd/mobstore/products/internal/domains/domainsgrpc;domainsgrpcb\x06proto3'
+  serialized_pb=b'\n\rdomains.proto\x12\x07\x64omains\"6\n\x0f\x44iscountRequest\x12\x12\n\nproduct_id\x18\x01 \x01(\t\x12\x0f\n\x07user_id\x18\x02 \x01(\t\"c\n\x10\x44iscountResponse\x12\x12\n\nproduct_id\x18\x01 \x01(\t\x12\x0f\n\x07user_id\x18\x02 \x01(\t\x12\x12\n\npercentage\x18\x03 \x01(\x02\x12\x16\n\x0evalue_in_cents\x18\x04 \x01(\x02\x42TH\x01ZPgithub.com/dalmarcogd/mobstore/products/internal/domains/domainsgrpc;domainsgrpcb\x06proto3'
 )
 
 
@@ -95,8 +95,8 @@ _DISCOUNTRESPONSE = _descriptor.Descriptor(
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='value_in_cents', full_name='domains.DiscountResponse.value_in_cents', index=3,
-      number=4, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
+      number=4, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
