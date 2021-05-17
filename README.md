@@ -37,3 +37,4 @@ go=1.16.4
 ```sh
 make run
 ```
+This single command will provision resources with terraform using localstack (SNS, SQS and database users), start a MySQL server and Zipkin server (for spans). After that, users, products and discounts will starts.
