@@ -30,7 +30,7 @@ func newMock() (services.ServiceManager, sqlmock.Sqlmock) {
 	return serviceImpl, mock
 }
 
-func TestCardRepository_Search(t *testing.T) {
+func TestProductRepository_Search(t *testing.T) {
 	serviceManger, mock := newMock()
 
 	repo := New()
@@ -47,7 +47,7 @@ func TestCardRepository_Search(t *testing.T) {
 	}
 
 	mock.ExpectBegin()
-	mock.ExpectQuery("select id from products where title = ? order by id").RowsWillBeClosed().WithArgs("my-title").WillReturnRows(mock.NewRows([]string{"id"}).AddRow("my-id-1").AddRow("my-id-2"))
+	mock.ExpectQuery("select id from products where deleted_at is null and title = ? order by id").RowsWillBeClosed().WithArgs("my-title").WillReturnRows(mock.NewRows([]string{"id"}).AddRow("my-id-1").AddRow("my-id-2"))
 	mock.ExpectRollback()
 	mock.ExpectClose()
 	products, err := repo.Search(context.Background(), domains.ProductSearch{Filter: domains.ProductFilter{Title: ptrs.String("my-title")}, Projection: domains.ProductProjection{Id: true}})

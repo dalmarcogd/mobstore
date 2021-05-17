@@ -49,7 +49,7 @@ func TestResponseHttpServerSuccessfully(t *testing.T) {
 	}
 
 	e := echo.New()
-	req := httptest.NewRequest(http.MethodPost, "/users", strings.NewReader(`{"title": "my-product","description": "my beautiful product","price_in_cents": 10 }`))
+	req := httptest.NewRequest(http.MethodPost, "/users", strings.NewReader(`{"first_name": "my-product","last_name": "my beautiful product","birth_date": "19951010" }`))
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec)
@@ -72,7 +72,7 @@ func TestResponseHttpServerWithError(t *testing.T) {
 	}
 
 	e := echo.New()
-	req := httptest.NewRequest(http.MethodPost, "/users", strings.NewReader(`{"description": "my beautiful product","price_in_cents": 10 }`))
+	req := httptest.NewRequest(http.MethodPost, "/users", strings.NewReader(`{"first_name": null,"last_name": "my beautiful product","birth_date": "19951010" }`))
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec)

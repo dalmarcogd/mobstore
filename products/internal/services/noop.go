@@ -82,14 +82,6 @@ func (n *NoopDatabase) WithServiceManager(_ ServiceManager) Database {
 	return n
 }
 
-func (n *NoopDatabase) WithCardsAutomaticUpdaterDatabase() Database {
-	return n
-}
-
-func (n *NoopDatabase) WithCardsEmbossingsDatabase() Database {
-	return n
-}
-
 func (n *NoopDatabase) WithProductDatabase() Database {
 	return n
 }
