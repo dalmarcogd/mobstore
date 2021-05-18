@@ -37,6 +37,7 @@ go=1.16.4
 ```sh
 make run
 ```
-[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Mobstore&uri=https%3A%2F%2Fgithub.com%2Fdalmarcogd%2Fmobstore%2Fblob%2Fmain%2FInsomnia_2021-05-18.json)
-
 This single command will provision resources with terraform using localstack (SNS, SQS and database users), start a MySQL server and Zipkin server (for spans). After that, users, products and discounts will start.
+
+### Test
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Mobstore&uri=https%3A%2F%2Fgithub.com%2Fdalmarcogd%2Fmobstore%2Fblob%2Fmain%2FInsomnia_2021-05-18.json)
